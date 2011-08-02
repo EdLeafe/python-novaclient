@@ -731,7 +731,8 @@ class OpenStackShell(object):
         info = s._info.copy()
         addresses = info.pop('addresses')
         for addrtype in addresses:
-            info['%s ip' % addrtype] = ', '.join(addresses[addrtype])
+	    for address in  addresses[addrtype]: 
+            	info['%s ipv%s' % (addrtype, address['version'])] = address['addr']
 
         flavorId = info.get('flavorId', None)
         if flavorId:
