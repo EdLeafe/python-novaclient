@@ -50,6 +50,14 @@ class NotFound(OpenStackException):
     message = "Not found"
 
 
+class Timeout(OpenStackException):
+    """
+    HTTP 408 - Request timed out.
+    """
+    http_status = 408
+    message = "Request timed out"
+
+
 class OverLimit(OpenStackException):
     """
     HTTP 413 - Over limit: you're over the API limits for this time period.
@@ -74,7 +82,7 @@ class HTTPNotImplemented(OpenStackException):
 #
 # Instead, we have to hardcode it:
 _code_map = dict((c.http_status, c) for c in [BadRequest, Unauthorized,
-                   Forbidden, NotFound, OverLimit, HTTPNotImplemented])
+        Forbidden, NotFound, Timeout, OverLimit, HTTPNotImplemented])
 
 
 def from_response(response, body):
